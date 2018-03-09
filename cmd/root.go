@@ -49,6 +49,8 @@ to quickly create a Cobra application.`,
 		statusBar := bar.NewGoStatusBar()
 		statusBar.Add(addon.NewTimeAddon())
 		statusBar.Add(addon.NewIpAddon("enp5s0"))
+		statusBar.Add(addon.NewMemoryAddon())
+		statusBar.Add(addon.NewDiskAddon())
 		statusBar.Run()
 	},
 }
