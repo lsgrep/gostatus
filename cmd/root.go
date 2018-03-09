@@ -18,9 +18,13 @@ import (
 	"fmt"
 	"os"
 
+	"path"
+
 	"github.com/dexDev/utils/ucfg"
 	"github.com/dexDev/utils/ulog"
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/lsgrep/gostatus/addon"
+	"github.com/lsgrep/gostatus/bar"
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -41,7 +45,12 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		statusBar := bar.NewGoStatusBar()
+		statusBar.Add(addon.NewTimeAddon())
+		statusBar.Add(addon.NewIpAddon("enp5s0"))
+		statusBar.Run()
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -81,9 +90,9 @@ func initConfig() {
 		}
 
 		// Search config in home directory with name ".dexChainDaemon" (without extension).
-		viper.AddConfigPath(home)
+		viper.AddConfigPath(path.Join(home, ".config/i3"))
 		viper.AddConfigPath(".")
-		viper.SetConfigName("config")
+		viper.SetConfigName("gostatus")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
@@ -93,14 +102,7 @@ func initConfig() {
 		fmt.Println("failed to ReadInConfig")
 		os.Exit(1)
 	}
-	if env == "" {
-		fmt.Println("error: missing --env flag")
-		os.Exit(1)
-	}
-
-	fmt.Println("Using config file:", viper.ConfigFileUsed())
-
-	// this will force initialization of parts.
 	ucfg.Bootstrap()
+	// this will force initialization of parts.
 	log = ulog.NewLogger()
 }

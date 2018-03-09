@@ -15,6 +15,6 @@ var versionCmd = &cobra.Command{
 	Short: "print current version of chain daemon",
 	Long:  `print current version of chain daemon`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("version")
+		fmt.Println("version 0.1")
 	},
 }
