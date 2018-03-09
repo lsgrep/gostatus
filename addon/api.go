@@ -3,7 +3,11 @@ package addon
 import (
 	"sync"
 	"time"
+
+	"github.com/dexDev/utils/ulog"
 )
+
+var log = ulog.NewLogger()
 
 type Updater interface {
 	Update()

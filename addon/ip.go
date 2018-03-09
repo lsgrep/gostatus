@@ -2,8 +2,6 @@ package addon
 
 import (
 	"net"
-
-	"github.com/monax/monax/log"
 )
 
 // Get preferred outbound ip of this machine
@@ -34,7 +32,8 @@ func GetOutboundIP(networkInterface string) net.IP {
 func NewIpAddon(iface string) *Addon {
 	aa := Addon{UpdateIntervalMs: 5000,
 		UpdateFn: func(a *Addon) {
-			a.LastData = &Block{FullText: GetOutboundIP(iface).String()}
+			ip := GetOutboundIP(iface).String()
+			a.LastData = &Block{FullText: ip, Color: "green"}
 		}}
 	return &aa
 }

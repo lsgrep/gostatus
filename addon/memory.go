@@ -10,8 +10,6 @@ import (
 	"strings"
 
 	"strconv"
-
-	"github.com/monax/monax/log"
 )
 
 /*
