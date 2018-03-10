@@ -2,4 +2,6 @@
 
 
 
+![showcase](https://raw.githubusercontent.com/lsgrep/gostatus/master/screenshot.jpg)
+
 
