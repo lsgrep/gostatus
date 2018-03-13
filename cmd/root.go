@@ -47,11 +47,12 @@ to quickly create a Cobra application.`,
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		statusBar := bar.NewGoStatusBar()
-		statusBar.Add(addon.NewTimeAddon())
+		statusBar.Add(addon.NewCPUAddon())
 		statusBar.Add(addon.NewIpAddon("enp5s0"))
 		statusBar.Add(addon.NewMemoryAddon())
 		statusBar.Add(addon.NewDiskAddon("/"))
 		statusBar.Add(addon.NewDiskAddon("/data"))
+		statusBar.Add(addon.NewTimeAddon())
 		statusBar.Run()
 	},
 }

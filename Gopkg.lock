@@ -9,6 +9,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/c9s/goprocinfo"
+  packages = ["linux"]
+  revision = "0010a05ce49fde7f50669bc7ecda7d41dd6ab824"
+
+[[projects]]
+  branch = "master"
   name = "github.com/dexDev/utils"
   packages = [
     "ucfg",
@@ -178,6 +184,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1262553d0a1b17665d0345723ec1408a433766479271c213597025d9d6bc88ec"
+  inputs-digest = "b3ee39f12209e3bace0afeb395c01978c25661450b88d64ccded8c3438f92cc9"
   solver-name = "gps-cdcl"
   solver-version = 1
