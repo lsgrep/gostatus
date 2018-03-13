@@ -1,6 +1,9 @@
 ### status bar written in Go for i3wm
 
 
+#### warning 
+* please edit `main.go`, and change network interface & disk names according to your system first.
+
 #### install 
 * `dep ensure -v`, `dep` as in `https://github.com/golang/dep`
 * `go build`
