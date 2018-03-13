@@ -11,8 +11,6 @@ import (
 	"bufio"
 	"os"
 
-	"github.com/apex/log"
-	"github.com/dexDev/utils/ulog"
 	"github.com/lsgrep/gostatus/addon"
 )
 
@@ -20,7 +18,6 @@ import (
 var initMsg = `{ "version": 1, "stop_signal": 10, "cont_signal": 12, "click_events": true }`
 
 type gostatus struct {
-	log    ulog.Logger
 	addons []*addon.Addon
 }
 
@@ -45,7 +42,7 @@ func (gs *gostatus) processInput() {
 		if err != nil {
 			panic(err)
 		}
-		gs.log.Info(isPrefix, string(line))
+		fmt.Println(isPrefix, string(line))
 	}
 }
 
@@ -77,7 +74,7 @@ func (gs *gostatus) render() {
 		//necessary to start with a comma
 		fmt.Print(",")
 		fmt.Print(string(buf.Bytes()))
-		gs.log.Info(string(buf.Bytes()))
+		fmt.Println(string(buf.Bytes()))
 		time.Sleep(time.Second)
 	}
 }
@@ -94,13 +91,12 @@ func (gs *gostatus) Run() {
 		go a.Update()
 	}
 
-	log.Info("rendering...")
 	// 3. render addons
 	gs.render()
 }
 
 func NewGoStatusBar() *gostatus {
-	return &gostatus{log: ulog.NewLogger()}
+	return &gostatus{}
 }
 
 func (gs *gostatus) Add(a *addon.Addon) {

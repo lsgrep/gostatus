@@ -29,10 +29,6 @@ func GetOutboundIP(networkInterface string) net.IP {
 	return ip
 }
 
-/*
-"color": "#00ff00",
-    "background": "#0000ff"
-*/
 func NewIpAddon(iface string) *Addon {
 	aa := Addon{UpdateIntervalMs: 5000,
 		UpdateFn: func(a *Addon) {

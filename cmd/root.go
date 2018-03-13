@@ -20,8 +20,6 @@ import (
 
 	"path"
 
-	"github.com/dexDev/utils/ucfg"
-	"github.com/dexDev/utils/ulog"
 	"github.com/lsgrep/gostatus/addon"
 	"github.com/lsgrep/gostatus/bar"
 	"github.com/mitchellh/go-homedir"
@@ -30,7 +28,6 @@ import (
 )
 
 var cfgFile string
-var log ulog.Logger
 var env string
 
 // RootCmd represents the base command when called without any subcommands
@@ -106,7 +103,4 @@ func initConfig() {
 		fmt.Println("failed to ReadInConfig")
 		os.Exit(1)
 	}
-	ucfg.Bootstrap()
-	// this will force initialization of parts.
-	log = ulog.NewLogger()
 }
