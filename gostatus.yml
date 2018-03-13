@@ -1,6 +1,0 @@
----
-ulog:
-  defaultLevel: "info"
-  console: false
-  name: gostatus
-  directory: /tmp
