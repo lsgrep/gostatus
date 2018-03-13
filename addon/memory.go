@@ -49,7 +49,7 @@ func NewMemoryAddon() *Addon {
 	return &Addon{UpdateIntervalMs: 3000,
 		UpdateFn: func(a *Addon) {
 			avail, total := GetMemory()
-			a.LastData = &Block{FullText: fmt.Sprintf("%.2fGB / %.2fGB",
+			a.LastData = &Block{FullText: "\uf2db " + fmt.Sprintf("%.2fGB / %.2fGB",
 				float64(avail)/1024/1024, float64(total)/1024/1024)}
 		}}
 }
