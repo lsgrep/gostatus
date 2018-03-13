@@ -31,7 +31,8 @@ const (
 )
 
 func NewDiskAddon(path string) *Addon {
-	return &Addon{UpdateIntervalMs: 5000,
+	return &Addon{
+		UpdateIntervalMs: 5000,
 		UpdateFn: func(a *Addon) {
 			disk := DiskUsage(path)
 			a.LastData = &Block{FullText: fmt.Sprintf("\uf1c0  %s %.2fGB / %.2fGB", path,

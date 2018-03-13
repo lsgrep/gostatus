@@ -30,7 +30,8 @@ func GetOutboundIP(networkInterface string) net.IP {
 }
 
 func NewIpAddon(iface string) *Addon {
-	aa := Addon{UpdateIntervalMs: 5000,
+	aa := Addon{
+		UpdateIntervalMs: 5000,
 		UpdateFn: func(a *Addon) {
 			ip := GetOutboundIP(iface).String()
 			a.LastData = &Block{FullText: "\uf0e8" + ip, Color: "#00ff00"}

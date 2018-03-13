@@ -19,7 +19,8 @@ func GetCPUInfo() string {
 }
 
 func NewCPUAddon() *Addon {
-	return &Addon{UpdateIntervalMs: 3000,
+	return &Addon{
+		UpdateIntervalMs: 3000,
 		UpdateFn: func(a *Addon) {
 			a.LastData = &Block{FullText: "\uf0e4 " + GetCPUInfo()}
 		}}
