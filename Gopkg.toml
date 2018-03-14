@@ -27,19 +27,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/dexDev/utils"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/mitchellh/go-homedir"
-
-[[constraint]]
-  name = "github.com/spf13/cobra"
-  version = "0.0.1"
-
-[[constraint]]
-  name = "github.com/spf13/viper"
-  version = "1.0.0"
+  name = "github.com/c9s/goprocinfo"
 
 [prune]
   go-tests = true
