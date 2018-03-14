@@ -1,11 +1,8 @@
 package addon
 
 import (
-	"os/exec"
-
-	"bufio"
-	"bytes"
 	"fmt"
+	"io/ioutil"
 
 	"strings"
 
@@ -20,14 +17,11 @@ MemAvailable:    9196056 kB
 
 func GetMemory() (int64, int64) {
 	var err error
-	cmd := exec.Command("sh", "-c", "cat /proc/meminfo")
-	buf := &bytes.Buffer{}
-	cmd.Stdout = bufio.NewWriter(buf)
-	err = cmd.Run()
+	buf, err := ioutil.ReadFile("/proc/meminfo")
 	if err != nil {
 		panic(err)
 	}
-	lines := strings.Split(buf.String(), "\n")
+	lines := strings.Split(string(buf), "\n")
 	memTotal := strings.Fields(lines[0])[1]
 	memAvailable := strings.Fields(lines[2])[1]
 
