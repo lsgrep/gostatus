@@ -25,7 +25,7 @@ func GetMemory() (int64, int64) {
 	cmd.Stdout = bufio.NewWriter(buf)
 	err = cmd.Run()
 	if err != nil {
-		log.Panic(err)
+		panic(err)
 	}
 	lines := strings.Split(buf.String(), "\n")
 	memTotal := strings.Fields(lines[0])[1]
@@ -33,12 +33,12 @@ func GetMemory() (int64, int64) {
 
 	total, err := strconv.Atoi(memTotal)
 	if err != nil {
-		log.Panic(err)
+		panic(err)
 	}
 
 	available, err := strconv.Atoi(memAvailable)
 	if err != nil {
-		log.Panic(err)
+		panic(err)
 	}
 
 	return int64(available), int64(total)

@@ -9,12 +9,12 @@ func GetOutboundIP(networkInterface string) net.IP {
 	var ip net.IP
 	iface, err := net.InterfaceByName(networkInterface)
 	if err != nil {
-		log.Panic(err)
+		panic(err)
 	}
 
 	addrs, err := iface.Addrs()
 	if err != nil {
-		log.Panic(err)
+		panic(err)
 	}
 	// handle err
 	for _, addr := range addrs {
