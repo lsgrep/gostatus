@@ -2,15 +2,15 @@
 
 ![showcase](https://raw.githubusercontent.com/lsgrep/gostatus/master/screenshot.jpg)
 
-#### ROADMAP
-* TODO support YAML config file
-* TODO add necessary addons
-    * Disk IO throughput
-    * Network throughput
-    * Volume Up/Down
-    * Spotify
-    * Bitcoin/Ethereum Ticker
-* TODO Better Design
+#### TODO
+ - [ ] Support YAML config file
+ - [ ] Add necessary addons
+     - [ ] Disk IO throughput
+     - [ ] Network throughput
+     - [ ] Volume Up/Down
+     - [ ] Spotify
+     - [ ] Bitcoin/Ethereum Ticker
+ - [ ] Better Design
 
 #### warning 
 * please edit `main.go`, and change network interface & disk mount paths according to your system first.
