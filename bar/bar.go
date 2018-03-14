@@ -38,11 +38,10 @@ func setupBar() {
 func (gs *gostatus) processInput() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
-		line, isPrefix, err := reader.ReadLine()
+		_, _, err := reader.ReadLine()
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(isPrefix, string(line))
 	}
 }
 
@@ -74,7 +73,6 @@ func (gs *gostatus) render() {
 		//necessary to start with a comma
 		fmt.Print(",")
 		fmt.Print(string(buf.Bytes()))
-		fmt.Println(string(buf.Bytes()))
 		time.Sleep(time.Second)
 	}
 }

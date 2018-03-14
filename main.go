@@ -5,10 +5,8 @@ import (
 	"github.com/lsgrep/gostatus/bar"
 )
 
-
 // TODO read addons from config file.
 func main() {
-
 	statusBar := bar.NewGoStatusBar()
 	statusBar.Add(addon.NewCPUAddon())
 
@@ -20,5 +18,6 @@ func main() {
 
 	statusBar.Add(addon.NewDiskAddon("/data"))
 	statusBar.Add(addon.NewTimeAddon())
+
 	statusBar.Run()
 }

@@ -27,7 +27,6 @@ func GetMemory() (int64, int64) {
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println()
 	lines := strings.Split(buf.String(), "\n")
 	memTotal := strings.Fields(lines[0])[1]
 	memAvailable := strings.Fields(lines[2])[1]
@@ -51,6 +50,6 @@ func NewMemoryAddon() *Addon {
 			avail, total := GetMemory()
 			a.LastData = &Block{
 				FullText: "\uf2db " + fmt.Sprintf("%.2fGB / %.2fGB",
-				float64(avail)/1024/1024, float64(total)/1024/1024)}
+					float64(avail)/1024/1024, float64(total)/1024/1024)}
 		}}
 }
