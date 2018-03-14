@@ -49,7 +49,6 @@ func (gs *gostatus) render() {
 	buf := bytes.Buffer{}
 	encoder := json.NewEncoder(&buf)
 	encoder.SetEscapeHTML(false)
-	//encoder.SetIndent("", " ")
 	for {
 		buf.Reset()
 		var output []addon.Block
