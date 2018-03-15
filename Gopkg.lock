@@ -7,9 +7,53 @@
   packages = ["linux"]
   revision = "0010a05ce49fde7f50669bc7ecda7d41dd6ab824"
 
+[[projects]]
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
+  version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/zmb3/spotify"
+  packages = ["."]
+  revision = "79deba8533f6a0e6545b3937667522d323aa6754"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/net"
+  packages = [
+    "context",
+    "context/ctxhttp"
+  ]
+  revision = "e0c57d8f86c17f0724497efcb3bc617e82834821"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/oauth2"
+  packages = [
+    ".",
+    "internal"
+  ]
+  revision = "fdc9e635145ae97e6c2cb777c48305600cf515cb"
+
+[[projects]]
+  name = "google.golang.org/appengine"
+  packages = [
+    "internal",
+    "internal/base",
+    "internal/datastore",
+    "internal/log",
+    "internal/remote_api",
+    "internal/urlfetch",
+    "urlfetch"
+  ]
+  revision = "150dc57a1b433e64154302bdc40b6bb8aefa313a"
+  version = "v1.0.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f7a38c6dde7c44a5903e94101f0d24881f89db1923b83971cb99f5b6ec736d91"
+  inputs-digest = "a147bd703625b8e1fe615462d0402d91a2f91e5a804b177d9e03cee2b5c75774"
   solver-name = "gps-cdcl"
   solver-version = 1

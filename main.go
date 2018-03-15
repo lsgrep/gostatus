@@ -8,6 +8,8 @@ import (
 // TODO read addons from config file.
 func main() {
 	statusBar := bar.NewGoStatusBar()
+
+	statusBar.Add(addon.NewGithubNotificationsAddon("lsgrep"))
 	statusBar.Add(addon.NewCPUAddon())
 
 	// pass network interface name
@@ -18,6 +20,5 @@ func main() {
 
 	statusBar.Add(addon.NewDiskAddon("/data"))
 	statusBar.Add(addon.NewTimeAddon())
-
 	statusBar.Run()
 }
