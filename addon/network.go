@@ -32,7 +32,7 @@ func GetNetwork(iface string) (int64, int64) {
 	data := strings.Split(string(buf), "\n")
 	var ifaceData string
 	for _, l := range data {
-		if strings.Contains(l, iface) {
+		if strings.HasPrefix(l, iface) {
 			ifaceData = l
 		}
 	}
