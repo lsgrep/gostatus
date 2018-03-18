@@ -32,7 +32,7 @@ func init() {
 	}
 }
 
-// TODO replace with any elegant solution
+// TODO replace this with any elegant solution
 func GetVolume() (bool, string) {
 	buf := bytes.NewBufferString("")
 	c := exec.Command("sh", "-c", "pactl list sinks | grep -B 10000 \"SUSPENDED\"")
@@ -51,6 +51,7 @@ func GetVolume() (bool, string) {
 	for _, line := range lines {
 		if strings.Contains(line, "Mute:") {
 			matches := mutedReg.FindStringSubmatch(line)
+			// TODO `no` is locale specific, so it might fail with German etc
 			if len(matches) > 1 && strings.ToLower(mutedReg.FindStringSubmatch(line)[1]) == "no" {
 				muted = false
 			} else {
