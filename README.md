@@ -41,3 +41,7 @@ $ ./gostatus                                                                    
 ,[{"full_text":" 16.28%"},{"full_text":"10.30.7.13","color":"#00ff00"},{"full_text":" 7.70GB / 15.58GB"},{"full_text":"  / 71.18GB / 109.53GB"},{"full_text":"  /data 169.68GB / 228.23GB"},{"full_text":"14 Mar 18 15:46 CST"}]                          
 ,[{"full_text":" 16.28%"},{"full_text":"10.30.7.13","color":"#00ff00"},{"full_text":" 7.70GB / 15.58GB"},{"full_text":"  / 71.18GB / 109.53GB"},{"full_text":"  /data 169.68GB / 228.23GB"},{"full_text":"14 Mar 18 15:46 CST"}]  
 ```
+
+#### Inspired by
+* https://github.com/burik666/yagostatus
+* https://github.com/davidscholberg/goblocks
