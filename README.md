@@ -1,6 +1,6 @@
-### gostatus [![CircleCI](https://circleci.com/gh/lsgrep/gostatus.svg?style=svg)](https://circleci.com/gh/lsgrep/gostatus)
+## gostatus [![CircleCI](https://circleci.com/gh/lsgrep/gostatus.svg?style=svg)](https://circleci.com/gh/lsgrep/gostatus)
 
-### status bar written in Go for i3wm
+> status bar written in Go for i3wm
 
 ![showcase](https://raw.githubusercontent.com/lsgrep/gostatus/master/screenshot.jpg)
 
