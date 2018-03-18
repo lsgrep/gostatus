@@ -18,7 +18,7 @@
 * please edit `main.go`, and change network interface & disk mount paths according to your system first.
 
 #### build & install  
-check out releases or build manually.
+check out [releases](https://github.com/lsgrep/gostatus/releases) or build manually.
 
 * `dep ensure -v`, `dep` as in `https://github.com/golang/dep`
 * `go build`
