@@ -15,7 +15,9 @@
 #### warning 
 * please edit `main.go`, and change network interface & disk mount paths according to your system first.
 
-#### install 
+#### build & install  
+check out releases or build manually.
+
 * `dep ensure -v`, `dep` as in `https://github.com/golang/dep`
 * `go build`
 * `sudo ln -s $(pwd)/gostatus /usr/local/bin/gostatus` or if you are using fish `sudo ln -s (pwd)/gostatus /usr/local/bin/gostatus`
