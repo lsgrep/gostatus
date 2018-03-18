@@ -27,12 +27,12 @@ check out [releases](https://github.com/lsgrep/gostatus/releases) or build manua
 
 
 #### debugging
-Just run it and read the `stdout`  . Except the first JSON object row,
- each row should be a JSON array with a leading comma(`,`), or i3bar failed to parse the line.
-  
+Just run it and read the `stdout`. 
+
+Except the first JSON object line, each line should be a JSON array with a leading comma(`,`), or i3bar failed to parse the line.
 
 ```
-╰─λ ./gostatus                                                                                                                                                                                                                          fish-0 | 127 < 15:46:44
+$ ./gostatus                                                                                                                                                                                                                          fish-0 | 127 < 15:46:44
 { "version": 1, "stop_signal": 10, "cont_signal": 12, "click_events": true }[[],[{"full_text":"14 Mar 18 15:46 CST"}]          
 ,[{"full_text":"14 Mar 18 15:46 CST"}]                         
 ,[{"full_text":" 16.28%"},{"full_text":" 7.71GB / 15.58GB"},{"full_text":"14 Mar 18 15:46 CST"}]                             
