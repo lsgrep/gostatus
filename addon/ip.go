@@ -4,10 +4,14 @@ import (
 	"net"
 )
 
+type ip struct {
+	networkInterface string
+}
+
 // Get preferred outbound ip of this machine
-func GetOutboundIP(networkInterface string) net.IP {
+func (i *ip) Update() string {
 	var ip net.IP
-	iface, err := net.InterfaceByName(networkInterface)
+	iface, err := net.InterfaceByName(i.networkInterface)
 	if err != nil {
 		panic(err)
 	}
@@ -26,15 +30,15 @@ func GetOutboundIP(networkInterface string) net.IP {
 		}
 		// process IP address
 	}
-	return ip
+	return ip.String()
 }
 
 func NewIpAddon(iface string) *Addon {
+	i := &ip{networkInterface: iface}
 	aa := Addon{
 		UpdateIntervalMs: 5000,
-		UpdateFn: func(a *Addon) {
-			ip := GetOutboundIP(iface).String()
-			a.LastData = &Block{FullText: "\uf0e8" + ip, Color: "#00ff00"}
-		}}
+		Icon:             "\uf0e8",
+		Updater:          i,
+	}
 	return &aa
 }

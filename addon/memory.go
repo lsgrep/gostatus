@@ -15,7 +15,10 @@ MemFree:          215604 kB
 MemAvailable:    9196056 kB
 */
 
-func GetMemory() (int64, int64) {
+type memory struct {
+}
+
+func (m *memory) Update() string {
 	var err error
 	buf, err := ioutil.ReadFile("/proc/meminfo")
 	if err != nil {
@@ -35,15 +38,14 @@ func GetMemory() (int64, int64) {
 		panic(err)
 	}
 
-	return int64(available), int64(total)
+	return fmt.Sprintf("%.2fGB / %.2fGB",
+		float64(available)/1024/1024, float64(total)/1024/1024)
 }
 
 func NewMemoryAddon() *Addon {
-	return &Addon{UpdateIntervalMs: 3000,
-		UpdateFn: func(a *Addon) {
-			avail, total := GetMemory()
-			a.LastData = &Block{
-				FullText: "\uf2db " + fmt.Sprintf("%.2fGB / %.2fGB",
-					float64(avail)/1024/1024, float64(total)/1024/1024)}
-		}}
+	m := &memory{}
+	return &Addon{
+		UpdateIntervalMs: 3000,
+		Icon:             "\uf2db",
+		Updater:          m}
 }

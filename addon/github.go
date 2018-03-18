@@ -13,6 +13,11 @@ var client = &http.Client{}
 var githubNotificationsURL = "https://api.github.com/notifications"
 var gitAuthRegex = `https\://([a-zA-Z0-9]+)\:x\-oauth\-basic@github\.com`
 
+type githubNotification struct {
+	username string
+	token    string
+}
+
 // ReadGithubToken reads github personal access token from ~/.git-credentianls
 // https://git-scm.com/docs/git-credential-store#_storage_format
 func ReadGithubToken() string {
@@ -37,17 +42,17 @@ func basicAuth(username, password string) string {
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
-func GotNewNotifications(username string) bool {
+func (gn *githubNotification) Update() string {
 	token := ReadGithubToken()
 	if token == "" {
-		return false
+		return ""
 	}
 
 	request, err := http.NewRequest("GET", githubNotificationsURL, nil)
 	if err != nil {
 		panic(err)
 	}
-	request.Header.Add("Authorization", "Basic "+basicAuth(username, token))
+	request.Header.Add("Authorization", "Basic "+basicAuth(gn.username, token))
 	response, err := client.Do(request)
 	if err != nil {
 		panic(err)
@@ -58,21 +63,19 @@ func GotNewNotifications(username string) bool {
 		panic(err)
 	}
 
+	if string(bs) != "[]" {
+		return "New Messages"
+	}
+
 	// TODO this is way too primitive now.
-	return string(bs) != "[]"
+	return ""
 }
 
 func NewGithubNotificationsAddon(username string) *Addon {
+	gn := &githubNotification{username: username, token: ReadGithubToken()}
 	return &Addon{
 		UpdateIntervalMs: 1000 * 30,
-		UpdateFn: func(a *Addon) {
-			var defaultBlock = &Block{FullText: ""}
-			hasNew := GotNewNotifications(username)
-			if hasNew {
-				defaultBlock.FullText = "\uf09b  New Messages"
-				defaultBlock.Color = "#00ff00"
-			}
-			a.LastData = defaultBlock
-		},
+		Icon:             "\uf09b",
+		Updater:          gn,
 	}
 }

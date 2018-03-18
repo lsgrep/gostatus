@@ -6,7 +6,10 @@ import (
 	linuxproc "github.com/c9s/goprocinfo/linux"
 )
 
-func GetCPUInfo() string {
+type cpu struct {
+}
+
+func (c *cpu) Update() string {
 	stat, err := linuxproc.ReadStat("/proc/stat")
 	if err != nil {
 		panic(err)
@@ -19,9 +22,9 @@ func GetCPUInfo() string {
 }
 
 func NewCPUAddon() *Addon {
+	c := &cpu{}
 	return &Addon{
 		UpdateIntervalMs: 3000,
-		UpdateFn: func(a *Addon) {
-			a.LastData = &Block{FullText: "\uf0e4 " + GetCPUInfo()}
-		}}
+		Icon:             "\uf0e4",
+		Updater:          c}
 }

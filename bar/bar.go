@@ -85,7 +85,7 @@ func (gs *gostatus) Run() {
 
 	// 3. run addons
 	for _, a := range gs.addons {
-		go a.Update()
+		go a.Run()
 	}
 
 	// 3. render addons

@@ -6,21 +6,23 @@ import (
 )
 
 type DiskStatus struct {
+	Path string
 	All  uint64
 	Free uint64
 	Used uint64
 }
 
-func DiskUsage(path string) (disk DiskStatus) {
+func (ds *DiskStatus) Update() string {
 	fs := syscall.Statfs_t{}
-	err := syscall.Statfs(path, &fs)
+	err := syscall.Statfs(ds.Path, &fs)
 	if err != nil {
-		return
+		return ""
 	}
-	disk.All = fs.Blocks * uint64(fs.Bsize)
-	disk.Free = fs.Bfree * uint64(fs.Bsize)
-	disk.Used = disk.All - disk.Free
-	return
+	ds.All = fs.Blocks * uint64(fs.Bsize)
+	ds.Free = fs.Bfree * uint64(fs.Bsize)
+	ds.Used = ds.All - ds.Free
+	return fmt.Sprintf("\uf1c0  %s %.2fGB / %.2fGB", ds.Path,
+		float64(ds.Free)/float64(GB), float64(ds.All)/float64(GB))
 }
 
 const (
@@ -31,11 +33,8 @@ const (
 )
 
 func NewDiskAddon(path string) *Addon {
+	ds := &DiskStatus{Path: path}
 	return &Addon{
 		UpdateIntervalMs: 5000,
-		UpdateFn: func(a *Addon) {
-			disk := DiskUsage(path)
-			a.LastData = &Block{FullText: fmt.Sprintf("\uf1c0  %s %.2fGB / %.2fGB", path,
-				float64(disk.Free)/float64(GB), float64(disk.All)/float64(GB))}
-		}}
+		Updater:          ds}
 }

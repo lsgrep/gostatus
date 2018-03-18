@@ -2,11 +2,17 @@ package addon
 
 import "time"
 
+type timer struct {
+}
+
+func (t *timer) Update() string {
+	return time.Now().Format(time.RFC822)
+}
+
 func NewTimeAddon() *Addon {
+	t := &timer{}
 	aa := Addon{
 		UpdateIntervalMs: 1000,
-		UpdateFn: func(a *Addon) {
-			a.LastData = &Block{FullText: time.Now().Format(time.RFC822)}
-		}}
+		Updater:          t}
 	return &aa
 }
