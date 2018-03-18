@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  test-build-job:
+    docker:
+      - image: circleci/golang:1.9
+    environment:
+        GOPATH: /home/circleci/go
+    working_directory: /home/circleci/go/src/github.com/lsgrep/gostatus
+    steps:
+      - checkout
+      - run:
+          name: Bash fix
+          command: |
+            echo 'export PATH=$PATH:$GOPATH/bin' >> $BASH_ENV
+
+      - run:
+          name: Init
+          command: |
+            go get -u github.com/golang/dep/cmd/dep
+            dep ensure
+
+      - run:
+          name: Test & Lint
+          command: |
+            go test $(go list ./... | grep -v /vendor/)
+            go get github.com/alecthomas/gometalinter
+            gometalinter --install >> /dev/null
+            # `true` makes sure that even if there are problems, we move the fuck on.
+            gometalinter --exclude=vendor --disable=golint ./... || true
+
+      - run:
+          name: Compile & Release
+          command: |
+            export BUILD_DATE=$(TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ')
+            export GIT_HASH=$(git rev-parse HEAD)
+            export PROJECT_URL=github.com/$CIRCLE_PROJECT_USERNAME/${CIRCLE_PROJECT_REPONAME}
+            export CURRENT_VERSION=v0.1.$CIRCLE_BUILD_NUM
+            go get github.com/mitchellh/gox
+            go get github.com/tcnksm/ghr
+            go get github.com/inconshreveable/mousetrap
+            CGO_ENABLED=0 gox -osarch="linux/amd64" -ldflags "-X $PROJECT_URL/cmd.Version=$CURRENT_VERSION -X $PROJECT_URL/cmd.BuildDate=$BUILD_DATE -X $PROJECT_URL/cmd.GitHash=$GIT_HASH" -output "dist/${CIRCLE_PROJECT_REPONAME}_{{.OS}}_{{.Arch}}"
+            #ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME $CURRENT_VERSION dist/ || true
+
+      - save_cache:
+          key: gostatus-deploy-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/go/src/github.com/lsgrep/gostatus
+
+      - store_artifacts:
+          path: dist
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - test-build-job
