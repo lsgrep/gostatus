@@ -1,8 +1,6 @@
 package addon
 
 import (
-	"fmt"
-
 	"bytes"
 	"os"
 	"os/exec"
@@ -39,8 +37,8 @@ func GetVolume() (bool, string) {
 	c.Stderr = os.Stderr
 	c.Stdout = buf
 	if err := c.Run(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		// TODO log error
+		return false, ""
 	}
 	output := buf.String()
 	lines := strings.Split(output, "\n")

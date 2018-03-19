@@ -8,9 +8,9 @@ import (
 func main() {
 
 	statusBar := bar.NewGoStatusBar()
+	statusBar.Add(addon.NewGithubNotificationsAddon("lsgrep"))
 	statusBar.Add(addon.NewVolumeAddon())
 	statusBar.Add(addon.NewNetworkAddon("enp5s0"))
-	statusBar.Add(addon.NewGithubNotificationsAddon("lsgrep"))
 	statusBar.Add(addon.NewCPUAddon())
 
 	// pass network interface name
