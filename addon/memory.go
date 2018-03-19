@@ -15,12 +15,12 @@ MemAvailable:    9196056 kB
 type memory struct {
 }
 
-func (m *memory) Update() string {
+func (m *memory) Update() *Block {
 	var err error
 	var memAvail, memTotal int64
 	r, err := os.Open("/proc/meminfo")
 	if err != nil {
-		return ""
+		return nil
 	}
 	defer r.Close()
 	_, err = fmt.Fscanf(
@@ -28,14 +28,15 @@ func (m *memory) Update() string {
 		"MemTotal: %d kB\nMemFree: %d kB\nMemAvailable: %d ",
 		&memTotal, &memAvail, &memAvail)
 
-	return fmt.Sprintf("%.2fGB / %.2fGB",
+	txt := fmt.Sprintf("%.2fGB / %.2fGB",
 		float64(memAvail)/1024/1024, float64(memTotal)/1024/1024)
+	fullTxt := fmt.Sprintf(" %s  %s", IconMemory, txt)
+	return &Block{FullText: fullTxt}
 }
 
 func NewMemoryAddon() *Addon {
 	m := &memory{}
 	return &Addon{
 		UpdateIntervalMs: 3000,
-		Icon:             "\uf2db",
 		Updater:          m}
 }

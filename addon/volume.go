@@ -2,6 +2,7 @@ package addon
 
 import (
 	"bytes"
+	"fmt"
 	"os"
 	"os/exec"
 	"regexp"
@@ -70,18 +71,21 @@ func GetVolume() (bool, string) {
 type volumeStatus struct {
 }
 
-func (vs *volumeStatus) Update() string {
+func (vs *volumeStatus) Update() *Block {
 	muted, v := GetVolume()
+	var ret string
 	if muted {
-		return "muted"
+		ret = "muted"
+	} else {
+		ret = v
 	}
-	return v
+	fullTxt := fmt.Sprintf(" %s  %s", IconVolume, ret)
+	return &Block{FullText: fullTxt}
 }
 
 func NewVolumeAddon() *Addon {
 	v := &volumeStatus{}
 	aa := Addon{
-		Icon:             "\uf028",
 		UpdateIntervalMs: 1000,
 		Updater:          v}
 	return &aa

@@ -1,6 +1,7 @@
 package addon
 
 import (
+	"fmt"
 	"net"
 )
 
@@ -9,7 +10,7 @@ type ip struct {
 }
 
 // Get preferred outbound ip of this machine
-func (i *ip) Update() string {
+func (i *ip) Update() *Block {
 	var ip net.IP
 	iface, err := net.InterfaceByName(i.networkInterface)
 	if err != nil {
@@ -30,14 +31,14 @@ func (i *ip) Update() string {
 		}
 		// process IP address
 	}
-	return ip.String()
+	fullTxt := fmt.Sprintf(" %s  %s", IconIP, ip.String())
+	return &Block{FullText: fullTxt, Color: ColorLime}
 }
 
 func NewIpAddon(iface string) *Addon {
 	i := &ip{networkInterface: iface}
 	aa := Addon{
 		UpdateIntervalMs: 5000,
-		Icon:             "\uf0e8",
 		Updater:          i,
 	}
 	return &aa

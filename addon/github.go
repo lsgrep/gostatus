@@ -42,10 +42,10 @@ func basicAuth(username, password string) string {
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
-func (gn *githubNotification) Update() string {
+func (gn *githubNotification) Update() *Block {
 	token := ReadGithubToken()
 	if token == "" {
-		return ""
+		return nil
 	}
 
 	request, err := http.NewRequest("GET", githubNotificationsURL, nil)
@@ -64,18 +64,18 @@ func (gn *githubNotification) Update() string {
 	}
 
 	if string(bs) != "[]" {
-		return "New Messages"
+		fullTxt := fmt.Sprintf(" %s  %s", IconGithub, "New Messages")
+		return &Block{FullText: fullTxt, Color: ColorLime}
 	}
 
 	// TODO this is way too primitive now.
-	return ""
+	return nil
 }
 
 func NewGithubNotificationsAddon(username string) *Addon {
 	gn := &githubNotification{username: username, token: ReadGithubToken()}
 	return &Addon{
 		UpdateIntervalMs: 1000 * 30,
-		Icon:             "\uf09b",
 		Updater:          gn,
 	}
 }

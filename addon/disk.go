@@ -12,17 +12,19 @@ type DiskStatus struct {
 	Used uint64
 }
 
-func (ds *DiskStatus) Update() string {
+func (ds *DiskStatus) Update() *Block {
 	fs := syscall.Statfs_t{}
 	err := syscall.Statfs(ds.Path, &fs)
 	if err != nil {
-		return ""
+		return nil
 	}
 	ds.All = fs.Blocks * uint64(fs.Bsize)
 	ds.Free = fs.Bfree * uint64(fs.Bsize)
 	ds.Used = ds.All - ds.Free
-	return fmt.Sprintf("\uf1c0  %s %.2fGB / %.2fGB", ds.Path,
+	text := fmt.Sprintf("%s %.2fGB / %.2fGB", ds.Path,
 		float64(ds.Free)/float64(GB), float64(ds.All)/float64(GB))
+	fullTxt := fmt.Sprintf(" %s  %s", IconDisk, text)
+	return &Block{FullText: fullTxt}
 }
 
 const (

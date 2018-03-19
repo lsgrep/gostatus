@@ -28,3 +28,34 @@ type ClickEvent struct {
 	Width     uint16 `json:"width"`
 	Height    uint16 `json:"height"`
 }
+
+// icons
+const (
+	IconGithub  = "\uf09b"
+	IconDisk    = "\uf1c0"
+	IconCPU     = "\uf0e4"
+	IconIP      = "\uf0e8"
+	IconMemory  = "\uf2db"
+	IconNetwork = "\uf0c1"
+	IconVolume  = "\uf028"
+	IconTime    = "\uf017"
+)
+
+const (
+	ColorWhite   = "#FFFFFF"
+	ColorSilver  = "#C0C0C0"
+	ColorGray    = "#808080"
+	ColorBlack   = "#000000"
+	ColorRed     = "#FF0000"
+	ColorMaroon  = "#800000"
+	ColorYellow  = "#FFFF00"
+	ColorOlive   = "#808000"
+	ColorLime    = "#00FF00"
+	ColorGreen   = "#008000"
+	ColorAqua    = "#00FFFF"
+	ColorTeal    = "#008080"
+	ColorBlue    = "#0000FF"
+	ColorNavy    = "#000080"
+	ColorFuchsia = "#FF00FF"
+	ColorPurple  = "#800080"
+)

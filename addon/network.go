@@ -43,25 +43,27 @@ func GetNetwork(iface string) (int64, int64) {
 	return int64(downCount), int64(uploadCount)
 }
 
-func (ns *networkStatus) Update() string {
+func (ns *networkStatus) Update() *Block {
 	ts := time.Now().Unix()
 	downCnt, upCnt := GetNetwork(ns.NetworkInterface)
 	if ns.DownPacketCnt == 0 || ns.UpPacketCnt == 0 {
 		ns.checkedAt = ts
 		ns.DownPacketCnt = downCnt
 		ns.UpPacketCnt = upCnt
-		return ""
+		return nil
 	}
 	downSpeed := float64(downCnt-ns.DownPacketCnt) / float64(ts-ns.checkedAt) / 1024
 	upSpeed := float64(upCnt-ns.UpPacketCnt) / float64(ts-ns.checkedAt) / 1024
 
-	return fmt.Sprintf("%.2f KB/s %.2f KB/s", downSpeed, upSpeed)
+	txt := fmt.Sprintf("%.2f KB/s %.2f KB/s", downSpeed, upSpeed)
+	fullTxt := fmt.Sprintf(" %s  %s", IconNetwork, txt)
+
+	return &Block{FullText: fullTxt, Color: ""}
 }
 
 func NewNetworkAddon(iface string) *Addon {
 	n := &networkStatus{NetworkInterface: iface}
 	return &Addon{
 		UpdateIntervalMs: 3000,
-		Icon:             "\uf0c1",
 		Updater:          n}
 }
