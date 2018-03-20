@@ -3,6 +3,7 @@ package addon
 import (
 	"fmt"
 	"net"
+	"time"
 )
 
 type ip struct {
@@ -38,8 +39,8 @@ func (i *ip) Update() *Block {
 func NewIpAddon(iface string) *Addon {
 	i := &ip{networkInterface: iface}
 	aa := Addon{
-		UpdateIntervalMs: 5000,
-		Updater:          i,
+		UpdateInterval: 5000 * time.Millisecond,
+		Updater:        i,
 	}
 	return &aa
 }

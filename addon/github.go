@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"time"
 )
 
 var client = &http.Client{}
@@ -75,7 +76,7 @@ func (gn *githubNotification) Update() *Block {
 func NewGithubNotificationsAddon(username string) *Addon {
 	gn := &githubNotification{username: username, token: ReadGithubToken()}
 	return &Addon{
-		UpdateIntervalMs: 1000 * 30,
-		Updater:          gn,
+		UpdateInterval: 30 * time.Second,
+		Updater:        gn,
 	}
 }

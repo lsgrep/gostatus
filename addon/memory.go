@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"os"
+	"time"
 )
 
 /*
@@ -37,6 +38,6 @@ func (m *memory) Update() *Block {
 func NewMemoryAddon() *Addon {
 	m := &memory{}
 	return &Addon{
-		UpdateIntervalMs: 3000,
-		Updater:          m}
+		UpdateInterval: 3000 * time.Millisecond,
+		Updater:        m}
 }

@@ -16,7 +16,7 @@ func (t *timer) Update() *Block {
 func NewTimeAddon() *Addon {
 	t := &timer{}
 	aa := Addon{
-		UpdateIntervalMs: 1000,
-		Updater:          t}
+		UpdateInterval: 1000 * time.Millisecond,
+		Updater:        t}
 	return &aa
 }

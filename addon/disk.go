@@ -3,6 +3,7 @@ package addon
 import (
 	"fmt"
 	"syscall"
+	"time"
 )
 
 type DiskStatus struct {
@@ -37,6 +38,6 @@ const (
 func NewDiskAddon(path string) *Addon {
 	ds := &DiskStatus{Path: path}
 	return &Addon{
-		UpdateIntervalMs: 5000,
-		Updater:          ds}
+		UpdateInterval: 5000 * time.Millisecond,
+		Updater:        ds}
 }

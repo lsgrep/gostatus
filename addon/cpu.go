@@ -3,6 +3,8 @@ package addon
 import (
 	"fmt"
 
+	"time"
+
 	linuxproc "github.com/c9s/goprocinfo/linux"
 )
 
@@ -27,6 +29,6 @@ func (c *cpu) Update() *Block {
 func NewCPUAddon() *Addon {
 	c := &cpu{}
 	return &Addon{
-		UpdateIntervalMs: 3000,
-		Updater:          c}
+		UpdateInterval: 3000 * time.Millisecond,
+		Updater:        c}
 }

@@ -58,12 +58,12 @@ func (ns *networkStatus) Update() *Block {
 	txt := fmt.Sprintf("%.2f KB/s %.2f KB/s", downSpeed, upSpeed)
 	fullTxt := fmt.Sprintf(" %s  %s", IconNetwork, txt)
 
-	return &Block{FullText: fullTxt, Color: ""}
+	return &Block{FullText: fullTxt, Color: "aoeu"}
 }
 
 func NewNetworkAddon(iface string) *Addon {
 	n := &networkStatus{NetworkInterface: iface}
 	return &Addon{
-		UpdateIntervalMs: 3000,
-		Updater:          n}
+		UpdateInterval: 3000 * time.Millisecond,
+		Updater:        n}
 }

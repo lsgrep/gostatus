@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+	"time"
 )
 
 // Mute: no
@@ -86,7 +87,7 @@ func (vs *volumeStatus) Update() *Block {
 func NewVolumeAddon() *Addon {
 	v := &volumeStatus{}
 	aa := Addon{
-		UpdateIntervalMs: 1000,
-		Updater:          v}
+		UpdateInterval: 1000 * time.Millisecond,
+		Updater:        v}
 	return &aa
 }

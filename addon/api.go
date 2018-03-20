@@ -15,15 +15,18 @@ type Addon struct {
 	sync.Mutex
 	LastData *Block
 
-	UpdateIntervalMs int64
-	Icon             string
-	Updater          Updater
+	UpdateInterval time.Duration
+	Icon           string
+	Updater        Updater
 }
 
 func (a *Addon) Run() {
-	for range time.Tick(time.Duration(int64(time.Millisecond) * a.UpdateIntervalMs)) {
+	for range time.Tick(a.UpdateInterval) {
+		// generating data should not be locked
+		newData := a.Updater.Update()
+
 		a.Lock()
-		a.LastData = a.Updater.Update()
+		a.LastData = newData
 		a.Unlock()
 	}
 }
