@@ -32,7 +32,7 @@ func (m *memory) Update() *Block {
 	txt := fmt.Sprintf("%.2fGB / %.2fGB",
 		float64(memAvail)/1024/1024, float64(memTotal)/1024/1024)
 	fullTxt := fmt.Sprintf(" %s  %s", IconMemory, txt)
-	return &Block{FullText: fullTxt}
+	return &Block{FullText: fullTxt, Color: ColorYellow}
 }
 
 func NewMemoryAddon() *Addon {

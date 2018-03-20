@@ -58,7 +58,7 @@ func (ns *networkStatus) Update() *Block {
 	txt := fmt.Sprintf("%.2f KB/s %.2f KB/s", downSpeed, upSpeed)
 	fullTxt := fmt.Sprintf(" %s  %s", IconNetwork, txt)
 
-	return &Block{FullText: fullTxt, Color: "aoeu"}
+	return &Block{FullText: fullTxt}
 }
 
 func NewNetworkAddon(iface string) *Addon {
