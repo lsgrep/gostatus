@@ -35,7 +35,7 @@ func init() {
 // TODO replace this with any elegant solution
 func GetVolume() (bool, string) {
 	buf := bytes.NewBufferString("")
-	c := exec.Command("sh", "-c", "pactl list sinks | grep -B 10000 \"SUSPENDED\"")
+	c := exec.Command("sh", "-c", "pactl list sinks | grep -A 20 \"RUNNING\"")
 	c.Stderr = os.Stderr
 	c.Stdout = buf
 	if err := c.Run(); err != nil {
