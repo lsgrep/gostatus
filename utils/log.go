@@ -12,7 +12,6 @@ var once sync.Once
 func NewLogger() *zap.SugaredLogger {
 	once.Do(func() {
 		cfg := zap.NewDevelopmentConfig()
-		zap.NewDevelopmentEncoderConfig()
 		cfg.EncoderConfig = zap.NewDevelopmentEncoderConfig()
 		cfg.OutputPaths = []string{
 			"/tmp/gostatus.log",
