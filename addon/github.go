@@ -24,13 +24,11 @@ type githubNotification struct {
 func ReadGithubToken() string {
 	bs, err := ioutil.ReadFile(fmt.Sprintf("%s/.git-credentials", os.Getenv("HOME")))
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return ""
 	}
 
-	re, err := regexp.Compile(gitAuthRegex)
-	if err != nil {
-		panic(err)
-	}
+	re:= regexp.MustCompile(gitAuthRegex)
 	result := re.FindStringSubmatch(string(bs))
 	if len(result) == 0 {
 		return ""
@@ -51,17 +49,20 @@ func (gn *githubNotification) Update() *Block {
 
 	request, err := http.NewRequest("GET", githubNotificationsURL, nil)
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return nil
 	}
 	request.Header.Add("Authorization", "Basic "+basicAuth(gn.username, token))
 	response, err := client.Do(request)
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return nil
 	}
 
 	bs, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return  nil
 	}
 
 	if string(bs) != "[]" {

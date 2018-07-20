@@ -15,12 +15,14 @@ func (i *ip) Update() *Block {
 	var ip net.IP
 	iface, err := net.InterfaceByName(i.networkInterface)
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return nil
 	}
 
 	addrs, err := iface.Addrs()
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return nil
 	}
 	// handle err
 	for _, addr := range addrs {

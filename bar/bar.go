@@ -12,10 +12,12 @@ import (
 	"os"
 
 	"github.com/lsgrep/gostatus/addon"
+	"github.com/lsgrep/gostatus/utils"
 )
 
 // https://i3wm.org/docs/i3bar-protocol.html
 var initMsg = `{ "version": 1, "stop_signal": 10, "cont_signal": 12, "click_events": true }`
+var logger = utils.NewLogger()
 
 type gostatus struct {
 	addons []*addon.Addon
@@ -40,7 +42,8 @@ func (gs *gostatus) processInput() {
 	for {
 		_, _, err := reader.ReadLine()
 		if err != nil {
-			panic(err)
+			logger.Error(err)
+			break
 		}
 	}
 }
@@ -67,7 +70,8 @@ func (gs *gostatus) render() {
 
 		err := encoder.Encode(output)
 		if err != nil {
-			panic(err)
+			logger.Error(err)
+			break
 		}
 		//necessary to start with a comma
 		fmt.Print(",")

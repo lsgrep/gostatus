@@ -20,16 +20,8 @@ var mutedReg *regexp.Regexp
 var volumeReg *regexp.Regexp
 
 func init() {
-	var err error
-	mutedReg, err = regexp.Compile(mutedRegexStr)
-	if err != nil {
-		panic(err)
-	}
-
-	volumeReg, err = regexp.Compile(volumeRegexStr)
-	if err != nil {
-		panic(err)
-	}
+	mutedReg = regexp.MustCompile(mutedRegexStr)
+	volumeReg = regexp.MustCompile(volumeRegexStr)
 }
 
 // TODO replace this with any elegant solution

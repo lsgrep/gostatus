@@ -22,11 +22,12 @@ type networkStatus struct {
 	checkedAt        int64
 }
 
-func GetNetwork(iface string) (int64, int64) {
+func GetNetwork(iface string) (int64, int64, error) {
 	var err error
 	buf, err := ioutil.ReadFile("/proc/net/dev")
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return 0,0,err
 	}
 
 	data := strings.Split(string(buf), "\n")
@@ -40,12 +41,16 @@ func GetNetwork(iface string) (int64, int64) {
 	fields := strings.Fields(ifaceData)
 	downCount, _ := strconv.Atoi(fields[1])
 	uploadCount, _ := strconv.Atoi(fields[9])
-	return int64(downCount), int64(uploadCount)
+	return int64(downCount), int64(uploadCount), nil
 }
 
 func (ns *networkStatus) Update() *Block {
 	ts := time.Now().Unix()
-	downCnt, upCnt := GetNetwork(ns.NetworkInterface)
+	downCnt, upCnt, err := GetNetwork(ns.NetworkInterface)
+	if err != nil {
+		logger.Error(err)
+		return nil
+	}
 	if ns.DownPacketCnt == 0 || ns.UpPacketCnt == 0 {
 		ns.checkedAt = ts
 		ns.DownPacketCnt = downCnt

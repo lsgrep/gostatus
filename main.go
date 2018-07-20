@@ -3,9 +3,12 @@ package main
 import (
 	"github.com/lsgrep/gostatus/addon"
 	"github.com/lsgrep/gostatus/bar"
+	"github.com/lsgrep/gostatus/utils"
 )
 
+var logger = utils.NewLogger()
 func main() {
+	logger.Debug("gostatus has been started")
 	statusBar := bar.NewGoStatusBar()
 	statusBar.Add(addon.NewPomodoroAddon())
 	statusBar.Add(addon.NewGithubNotificationsAddon("lsgrep"))

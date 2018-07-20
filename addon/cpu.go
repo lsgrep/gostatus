@@ -14,7 +14,8 @@ type cpu struct {
 func (c *cpu) Update() *Block {
 	stat, err := linuxproc.ReadStat("/proc/stat")
 	if err != nil {
-		panic(err)
+		logger.Error(err)
+		return nil
 	}
 
 	cpu := stat.CPUStatAll
