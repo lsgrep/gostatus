@@ -12,7 +12,7 @@ var logger *zap.SugaredLogger
 var once sync.Once
 
 func init() {
-	viper.SetDefault("log", "/tmp/gostatus")
+	viper.SetDefault("log", "/tmp/gostatus.log")
 }
 
 func NewLogger() *zap.SugaredLogger {

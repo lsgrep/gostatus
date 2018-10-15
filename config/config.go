@@ -89,7 +89,7 @@ func ReadConfig(configPath string) ([]*addon.Addon, error) {
 			if !ok || strings.TrimSpace(path) == "" {
 				return nil, errors.New("Invalid Mount Path")
 			}
-			addons = append(addons, addon.NewIpAddon(path))
+			addons = append(addons, addon.NewDiskAddon(path))
 			continue
 		}
 	}

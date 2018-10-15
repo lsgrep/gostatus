@@ -15,7 +15,6 @@ func main() {
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 	configFile := viper.GetString("config")
-
 	statusBar := bar.NewGoStatusBar()
 	statusBar.Run(configFile)
 }

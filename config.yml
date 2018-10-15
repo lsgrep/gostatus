@@ -13,5 +13,3 @@ addons:
   - name: "disk"
     path: "/data"
   - name: "time"
-
-log: "/tmp/gostatus.log"

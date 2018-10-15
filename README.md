@@ -38,7 +38,6 @@ bar {
 
 #### logs
 * default log location `/tmp/gostatus.log`
-* or edit `log` entry in `config.yml`
 
 #### debugging
 Just run it and read the `stdout`. 
