@@ -12,27 +12,23 @@ check out [releases](https://github.com/lsgrep/gostatus/releases) or build manua
 
 * `dep ensure -v`, `dep` as in `https://github.com/golang/dep`
 * `go build`
-* `sudo ln -s $(pwd)/gostatus /usr/local/bin/gostatus` or if you are using fish `sudo ln -s (pwd)/gostatus /usr/local/bin/gostatus`
+* `sudo mv gostatus /usr/local/bin/gostatus`
 * edit & copy/create `config.yml`
 * change status_command in  `~/.config/i3/config`, e.g. `status_command gostatus --config config.yml` 
 
 #### multiple monitor setup
+* displays can be queried via `xrandr -q`
+
 ```
-https://i3wm.org/docs/userguide.html#_output_s
 bar {
     # The display is connected either via HDMI or via DisplayPort
-    output HDMI2
-    output DP2
-    status_command gostatus --config big.config.yml
+    output DP-0
+    status_command gostatus --config ~/.config/i3/gostatus.yml
 }
 
 bar {
-    output LVDS1
-    status_command gostatus --config small.config.yml
-    colors {
-        background #000000
-        statusline #ffffff
-    }
+    output HDMI-0
+    status_command gostatus --config ~/.config/i3/gostatus.min.yml
 }
 ```
 
