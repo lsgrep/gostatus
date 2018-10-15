@@ -3,8 +3,10 @@ package addon
 import (
 	"sync"
 	"time"
+
 	"github.com/lsgrep/gostatus/utils"
 )
+
 var logger = utils.NewLogger()
 
 // for each data fetcher

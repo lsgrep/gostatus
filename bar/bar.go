@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/lsgrep/gostatus/config"
+
 	"encoding/json"
 
 	"bytes"
@@ -24,7 +26,7 @@ type gostatus struct {
 }
 
 type Bar interface {
-	Run()
+	Run(configPath string)
 	Add(addon *addon.Addon)
 }
 
@@ -80,7 +82,10 @@ func (gs *gostatus) render() {
 	}
 }
 
-func (gs *gostatus) Run() {
+func (gs *gostatus) Run(filePath string) {
+	// 0. load config
+	gs.loadConfig(filePath)
+
 	// 1. setup i3bar
 	setupBar()
 
@@ -102,4 +107,14 @@ func NewGoStatusBar() *gostatus {
 
 func (gs *gostatus) Add(a *addon.Addon) {
 	gs.addons = append(gs.addons, a)
+}
+
+func (gs *gostatus) loadConfig(filePath string) {
+	addons, err := config.ReadConfig(filePath)
+	if err != nil {
+		gs.Add(addon.NewMessageAddon(err.Error()))
+	}
+	for _, a := range addons {
+		gs.Add(a)
+	}
 }

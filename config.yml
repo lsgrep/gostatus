@@ -1,0 +1,17 @@
+---
+addons:
+  - name: "pomodoro"
+  - name: "github"
+    username: "lsgrep"
+  - name: "volume"
+  - name: "network"
+    interface: "enp5s0"
+  - name: "cpu"
+  - name: "ip"
+    interface: "enp5s0"
+  - name: "memory"
+  - name: "disk"
+    path: "/data"
+  - name: "time"
+
+log: "/tmp/gostatus.log"
