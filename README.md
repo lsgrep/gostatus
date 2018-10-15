@@ -5,14 +5,7 @@
 ![showcase](https://raw.githubusercontent.com/lsgrep/gostatus/master/screenshot.jpg)
 
 #### TODO
- - [ ] Support YAML config file
- - [ ] Add necessary addons
-     - [ ] Disk IO throughput
-     - [ ] Network throughput
-     - [ ] Volume Up/Down
-     - [ ] Spotify
-     - [ ] Bitcoin/Ethereum Ticker
- - [ ] Better Design
+* [ ] Multi Screen Support 
 
 #### warning 
 * please edit `main.go`, and change network interface & disk mount paths according to your system first.
