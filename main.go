@@ -11,7 +11,7 @@ var logger = utils.NewLogger()
 
 func main() {
 	logger.Debug("gostatus has been started")
-	pflag.String("config", "config.yml", "config file")
+	pflag.String("config", "gostatus.yml", "config file")
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 	configFile := viper.GetString("config")
