@@ -10,7 +10,7 @@ check out [releases](https://github.com/lsgrep/gostatus/releases) or build manua
 * `dep ensure -v`, `dep` as in `https://github.com/golang/dep`
 * `go build`
 * `sudo mv gostatus /usr/local/bin/gostatus`
-* edit & copy/create `config.yml`, keep in mind to update network interface and disk path accordingly
+* edit & copy/create `gostatus.yml`, keep in mind to update network interface and disk path accordingly
 * change status_command in  `~/.config/i3/config`, e.g. `status_command gostatus --config config.yml` 
 
 #### multiple monitor setup
