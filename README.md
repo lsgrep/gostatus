@@ -2,7 +2,7 @@
 
 > status bar written in Go for i3wm
 
-![showcase](https://raw.githubusercontent.com/lsgrep/gostatus/master/gostatus.jpg)
+![showcase](https://raw.githubusercontent.com/lsgrep/gostatus/master/sceenshot.jpg)
 
 #### warning 
 * please edit `config.yml`, and change network interface & disk mount paths according to your system first.
