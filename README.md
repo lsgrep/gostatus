@@ -34,7 +34,7 @@ bar {
 
 #### debugging
 Just run it and read the `stdout`. 
-Except the first JSON object line, each line should be a JSON array with a leading comma(`,`), or i3bar failed to parse the line.
+Except the first JSON object line, each line should be a JSON array with a leading comma(`,`), or i3bar will fail to parse the line.
 
 ```
 $ ./gostatus --config config.yml
