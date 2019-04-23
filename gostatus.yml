@@ -1,6 +1,7 @@
 ---
 addons:
-  - name: "pomodoro"
+  # ReadGithubToken reads github personal access token from ~/.git-credentianls
+  # https://git-scm.com/docs/git-credential-store#_storage_format
   - name: "github"
     username: "lsgrep"
   - name: "volume"

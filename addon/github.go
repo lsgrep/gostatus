@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var client = &http.Client{}
+var httpCli = &http.Client{}
 var githubNotificationsURL = "https://api.github.com/notifications"
 var gitAuthRegex = `https\://([a-zA-Z0-9]+)\:x\-oauth\-basic@github\.com`
 
@@ -28,7 +28,7 @@ func ReadGithubToken() string {
 		return ""
 	}
 
-	re:= regexp.MustCompile(gitAuthRegex)
+	re := regexp.MustCompile(gitAuthRegex)
 	result := re.FindStringSubmatch(string(bs))
 	if len(result) == 0 {
 		return ""
@@ -53,7 +53,7 @@ func (gn *githubNotification) Update() *Block {
 		return nil
 	}
 	request.Header.Add("Authorization", "Basic "+basicAuth(gn.username, token))
-	response, err := client.Do(request)
+	response, err := httpCli.Do(request)
 	if err != nil {
 		logger.Error(err)
 		return nil
@@ -62,7 +62,7 @@ func (gn *githubNotification) Update() *Block {
 	bs, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		logger.Error(err)
-		return  nil
+		return nil
 	}
 
 	if string(bs) != "[]" {

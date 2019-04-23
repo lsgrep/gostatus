@@ -28,7 +28,6 @@ func (a *Addon) Run() {
 	for range time.Tick(a.UpdateInterval) {
 		// generating data should not be locked
 		newData := a.Updater.Update()
-
 		a.Lock()
 		a.LastData = newData
 		a.Unlock()

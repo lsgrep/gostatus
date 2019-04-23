@@ -27,7 +27,7 @@ func GetNetwork(iface string) (int64, int64, error) {
 	buf, err := ioutil.ReadFile("/proc/net/dev")
 	if err != nil {
 		logger.Error(err)
-		return 0,0,err
+		return 0, 0, err
 	}
 
 	data := strings.Split(string(buf), "\n")

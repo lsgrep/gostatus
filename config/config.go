@@ -84,6 +84,11 @@ func ReadConfig(configPath string) ([]*addon.Addon, error) {
 			continue
 		}
 
+		if name == "ip_ext" {
+			addons = append(addons, addon.NewIpExtAddon())
+			continue
+		}
+
 		if name == "disk" {
 			path, ok := m["path"].(string)
 			if !ok || strings.TrimSpace(path) == "" {
