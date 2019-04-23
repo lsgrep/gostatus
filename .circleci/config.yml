@@ -14,12 +14,6 @@ jobs:
             echo 'export PATH=$PATH:$GOPATH/bin' >> $BASH_ENV
 
       - run:
-          name: Init
-          command: |
-            go get -u github.com/golang/dep/cmd/dep
-            dep ensure
-
-      - run:
           name: Test & Lint
           command: |
             go test $(go list ./... | grep -v /vendor/)
@@ -35,9 +29,6 @@ jobs:
             export GIT_HASH=$(git rev-parse HEAD)
             export PROJECT_URL=github.com/$CIRCLE_PROJECT_USERNAME/${CIRCLE_PROJECT_REPONAME}
             export CURRENT_VERSION=v0.1.$CIRCLE_BUILD_NUM
-            go get github.com/mitchellh/gox
-            go get github.com/tcnksm/ghr
-            go get github.com/inconshreveable/mousetrap
             CGO_ENABLED=0 gox -os="linux" -ldflags "-X $PROJECT_URL/cmd.Version=$CURRENT_VERSION -X $PROJECT_URL/cmd.BuildDate=$BUILD_DATE -X $PROJECT_URL/cmd.GitHash=$GIT_HASH" -output "dist/${CIRCLE_PROJECT_REPONAME}_{{.OS}}_{{.Arch}}"
             ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME $CURRENT_VERSION dist/ || true
 
