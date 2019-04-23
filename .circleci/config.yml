@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Test & Lint
           command: |
+            go get
             go test $(go list ./... | grep -v /vendor/)
             go get github.com/alecthomas/gometalinter
             gometalinter --install >> /dev/null
