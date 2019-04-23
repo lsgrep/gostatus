@@ -18,10 +18,6 @@ jobs:
           command: |
             go get
             go test $(go list ./... | grep -v /vendor/)
-            go get github.com/alecthomas/gometalinter
-            gometalinter --install >> /dev/null
-            # `true` makes sure that even if there are problems, we move the fuck on.
-            gometalinter --exclude=vendor --disable=golint ./... || true
 
       - run:
           name: Compile & Release
