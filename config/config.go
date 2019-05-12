@@ -89,6 +89,12 @@ func ReadConfig(configPath string) ([]*addon.Addon, error) {
 			continue
 		}
 
+		if name == "ipv6_ext" {
+			logger.Error("ipv6....")
+			addons = append(addons, addon.NewIpv6ExtAddon())
+			continue
+		}
+
 		if name == "disk" {
 			path, ok := m["path"].(string)
 			if !ok || strings.TrimSpace(path) == "" {
