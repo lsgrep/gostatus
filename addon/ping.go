@@ -1,6 +1,7 @@
 package addon
 
 import (
+	"errors"
 	"fmt"
 	"golang.org/x/net/icmp"
 	"golang.org/x/net/ipv4"
@@ -79,8 +80,12 @@ func ping_(addr string, isIpv6 bool) (int64, error) {
 	switch replyMessage.Type {
 	case ipv4.ICMPTypeEchoReply, ipv6.ICMPTypeEchoReply:
 		return int64(duration) / 1000 / 1000, nil
+	case ipv4.ICMPTypeRouterAdvertisement, ipv6.ICMPTypeRouterAdvertisement:
+		return 0, errors.New("Router Advertisement")
+	case ipv4.ICMPTypeDestinationUnreachable, ipv6.ICMPTypeDestinationUnreachable:
+		return 0, errors.New("Destination Unreachable")
 	default:
-		panic(fmt.Errorf("got %+v from %v; want echo reply", replyMessage, peer))
+		panic(fmt.Errorf("Got %+v from %v; Want echo reply", replyMessage, peer))
 	}
 }
 
@@ -90,10 +95,10 @@ type pinger struct {
 }
 
 func NewPinger(addr string, proto string) *Addon {
-	p :=  &pinger{Addr: addr, Proto: proto}
+	p := &pinger{Addr: addr, Proto: proto}
 	return &Addon{
 		UpdateInterval: 10000 * time.Millisecond,
-		Updater:p,
+		Updater:        p,
 	}
 }
 
