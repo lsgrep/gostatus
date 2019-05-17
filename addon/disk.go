@@ -6,14 +6,14 @@ import (
 	"time"
 )
 
-type DiskStatus struct {
+type diskStatus struct {
 	Path string
 	All  uint64
 	Free uint64
 	Used uint64
 }
 
-func (ds *DiskStatus) Update() *Block {
+func (ds *diskStatus) Update() *Block {
 	fs := syscall.Statfs_t{}
 	err := syscall.Statfs(ds.Path, &fs)
 	if err != nil {
@@ -36,7 +36,7 @@ const (
 )
 
 func NewDiskAddon(path string) *Addon {
-	ds := &DiskStatus{Path: path}
+	ds := &diskStatus{Path: path}
 	return &Addon{
 		UpdateInterval: 5000 * time.Millisecond,
 		Updater:        ds}

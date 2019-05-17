@@ -103,6 +103,22 @@ func ReadConfig(configPath string) ([]*addon.Addon, error) {
 			addons = append(addons, addon.NewDiskAddon(path))
 			continue
 		}
+
+		if name == "ping" {
+			addr, ok := m["address"].(string)
+			if !ok || strings.TrimSpace(addr) == "" {
+				return nil, errors.New("Invalid Address")
+			}
+
+			proto, ok := m["proto"].(string)
+			if !ok {
+				proto = "ipv4"
+			} else if strings.TrimSpace(proto) == "" || proto != "ipv4" && proto != "ipv6" {
+				return nil, errors.New("Invalid Proto")
+			}
+			addons = append(addons, addon.NewPinger(addr, proto))
+			continue
+		}
 	}
 
 	return addons, nil
