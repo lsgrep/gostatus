@@ -11,10 +11,6 @@ import (
 var logger *zap.SugaredLogger
 var once sync.Once
 
-func init() {
-	viper.SetDefault("log", "/tmp/gostatus.log")
-}
-
 func NewLogger() *zap.SugaredLogger {
 	once.Do(func() {
 		cfg := zap.NewDevelopmentConfig()

@@ -7,13 +7,16 @@ import (
 	"github.com/spf13/viper"
 )
 
-var logger = utils.NewLogger()
-
 func main() {
-	logger.Debug("gostatus has been started")
 	pflag.String("config", "gostatus.yml", "config file")
+	pflag.String("log", "/tmp/gostatus.log", "log file")
 	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
+	err := viper.BindPFlags(pflag.CommandLine)
+	if err != nil {
+		panic(err)
+	}
+	var logger = utils.NewLogger()
+	logger.Debug("gostatus has been started")
 	configFile := viper.GetString("config")
 	statusBar := bar.NewGoStatusBar()
 	statusBar.Run(configFile)
