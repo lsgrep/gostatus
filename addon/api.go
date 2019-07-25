@@ -1,7 +1,6 @@
 package addon
 
 import (
-	"sync"
 	"time"
 
 	"github.com/lsgrep/gostatus/utils"
@@ -16,7 +15,6 @@ type Updater interface {
 
 type Addon struct {
 	// guard lastData
-	sync.Mutex
 	LastData *Block
 
 	UpdateInterval time.Duration
@@ -28,8 +26,6 @@ func (a *Addon) Run() {
 	for range time.Tick(a.UpdateInterval) {
 		// generating data should not be locked
 		newData := a.Updater.Update()
-		a.Lock()
 		a.LastData = newData
-		a.Unlock()
 	}
 }

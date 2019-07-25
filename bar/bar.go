@@ -58,12 +58,10 @@ func (gs *gostatus) render() {
 		buf.Reset()
 		var output []addon.Block
 		for _, a := range gs.addons {
-			a.Lock()
 			if a.LastData != nil {
 				temp := *a.LastData
 				output = append(output, temp)
 			}
-			a.Unlock()
 		}
 
 		if len(output) == 0 {
