@@ -5,11 +5,10 @@ import (
 	"strings"
 
 	"github.com/lsgrep/gostatus/addon"
-	"github.com/lsgrep/gostatus/utils"
+	"github.com/lsgrep/gostatus/log"
 	"github.com/spf13/viper"
 )
 
-var logger = utils.NewLogger()
 
 type barConfig struct {
 	Addons []map[string]interface{} `json:"addons"`
@@ -19,7 +18,7 @@ func ReadConfig(configPath string) ([]*addon.Addon, error) {
 	viper.SetConfigFile(configPath)
 	err := viper.ReadInConfig()
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 	var cfg barConfig
@@ -90,7 +89,7 @@ func ReadConfig(configPath string) ([]*addon.Addon, error) {
 		}
 
 		if name == "ipv6_ext" {
-			logger.Error("ipv6....")
+			log.Error("ipv6....")
 			addons = append(addons, addon.NewIpv6ExtAddon())
 			continue
 		}

@@ -2,6 +2,7 @@ package addon
 
 import (
 	"fmt"
+	"github.com/lsgrep/gostatus/log"
 	"net"
 	"time"
 )
@@ -15,13 +16,13 @@ func (i *ip) Update() *Block {
 	var ip net.IP
 	iface, err := net.InterfaceByName(i.networkInterface)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 
 	addrs, err := iface.Addrs()
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 	// handle err

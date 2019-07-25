@@ -3,6 +3,7 @@ package addon
 import (
 	"encoding/base64"
 	"fmt"
+	"github.com/lsgrep/gostatus/log"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -24,7 +25,7 @@ type githubNotification struct {
 func ReadGithubToken() string {
 	bs, err := ioutil.ReadFile(fmt.Sprintf("%s/.git-credentials", os.Getenv("HOME")))
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return ""
 	}
 
@@ -49,19 +50,19 @@ func (gn *githubNotification) Update() *Block {
 
 	request, err := http.NewRequest("GET", githubNotificationsURL, nil)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 	request.Header.Add("Authorization", "Basic "+basicAuth(gn.username, token))
 	response, err := httpCli.Do(request)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 
 	bs, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 

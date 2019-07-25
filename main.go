@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/lsgrep/gostatus/bar"
-	"github.com/lsgrep/gostatus/utils"
+	"github.com/lsgrep/gostatus/log"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -15,8 +15,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	var logger = utils.NewLogger()
-	logger.Debug("gostatus has been started")
+
+	l := viper.GetString("log")
+	log.ConfigureLogger(l)
+	log.Debug("gostatus has been started")
 	configFile := viper.GetString("config")
 	statusBar := bar.NewGoStatusBar()
 	statusBar.Run(configFile)

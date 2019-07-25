@@ -1,6 +1,7 @@
 package addon
 
 import (
+	"github.com/lsgrep/gostatus/log"
 	"io/ioutil"
 
 	"fmt"
@@ -26,7 +27,7 @@ func GetNetwork(iface string) (int64, int64, error) {
 	var err error
 	buf, err := ioutil.ReadFile("/proc/net/dev")
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return 0, 0, err
 	}
 
@@ -48,7 +49,7 @@ func (ns *networkStatus) Update() *Block {
 	ts := time.Now().Unix()
 	downCnt, upCnt, err := GetNetwork(ns.NetworkInterface)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 	if ns.DownPacketCnt == 0 || ns.UpPacketCnt == 0 {

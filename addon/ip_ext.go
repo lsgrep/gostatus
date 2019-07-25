@@ -2,6 +2,7 @@ package addon
 
 import (
 	"fmt"
+	"github.com/lsgrep/gostatus/log"
 	"io/ioutil"
 	"time"
 )
@@ -12,13 +13,13 @@ type ipExt struct {
 func (ie *ipExt) Update() *Block {
 	resp, err := httpCli.Get("https://api.ipify.org")
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 
 	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 

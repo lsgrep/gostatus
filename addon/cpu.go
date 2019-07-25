@@ -2,6 +2,7 @@ package addon
 
 import (
 	"fmt"
+	"github.com/lsgrep/gostatus/log"
 
 	"time"
 
@@ -14,7 +15,7 @@ type cpu struct {
 func (c *cpu) Update() *Block {
 	stat, err := linuxproc.ReadStat("/proc/stat")
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 

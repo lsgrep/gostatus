@@ -2,6 +2,7 @@ package addon
 
 import (
 	"fmt"
+	"github.com/lsgrep/gostatus/log"
 	"os"
 	"os/exec"
 )
@@ -11,6 +12,6 @@ func Notify(msg string) {
 	c.Stderr = os.Stderr
 	c.Stdout = os.Stdout
 	if err := c.Run(); err != nil {
-		logger.Error(err)
+		log.Error(err)
 	}
 }

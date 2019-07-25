@@ -3,6 +3,7 @@ package addon
 import (
 	"context"
 	"fmt"
+	"github.com/lsgrep/gostatus/log"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -31,13 +32,13 @@ var httpClientV6 = &http.Client{
 func (i *ipv6Ext) Update() *Block {
 	resp, err := httpClientV6.Get("https://api6.ipify.org")
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 
 	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		logger.Error(err)
+		log.Error(err)
 		return nil
 	}
 

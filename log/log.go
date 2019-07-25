@@ -1,9 +1,7 @@
-package utils
+package log
 
 import (
 	"sync"
-
-	"github.com/spf13/viper"
 
 	"go.uber.org/zap"
 )
@@ -11,12 +9,20 @@ import (
 var logger *zap.SugaredLogger
 var once sync.Once
 
-func NewLogger() *zap.SugaredLogger {
+func init() {
+	cfg := zap.NewDevelopmentConfig()
+	l, e := cfg.Build()
+	if e != nil {
+		panic(e)
+	}
+	logger = l.Sugar()
+}
+
+func ConfigureLogger(file string) {
 	once.Do(func() {
 		cfg := zap.NewDevelopmentConfig()
 		cfg.EncoderConfig = zap.NewDevelopmentEncoderConfig()
-		logFile := viper.GetString("log")
-		cfg.OutputPaths = []string{logFile}
+		cfg.OutputPaths = []string{file}
 		cfg.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 		l, err := cfg.Build()
 		if err != nil {
@@ -24,5 +30,12 @@ func NewLogger() *zap.SugaredLogger {
 		}
 		logger = l.Sugar()
 	})
-	return logger
+}
+
+func Error(args ...interface{}) {
+	logger.Error(args...)
+}
+
+func Debug(args ...interface{}) {
+	logger.Debug(args...)
 }
