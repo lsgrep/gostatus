@@ -7,10 +7,8 @@
 #### build & install  
 check out [releases](https://github.com/lsgrep/gostatus/releases) or build manually.
 
-* `dep ensure -v`, `dep` as in `https://github.com/golang/dep`
-* `go build`
+* `go install github.com/lsgrep/gostatus@latest`
 * if you want to use `ping`, `sudo setcap cap_net_raw+ep gostatus`,
-* `sudo mv gostatus /usr/local/bin/gostatus`
 * edit & copy/create `gostatus.yml`, keep in mind to update network interface and disk path accordingly
 * change status_command in  `~/.config/i3/config`, e.g. `status_command gostatus --config config.yml` 
 
